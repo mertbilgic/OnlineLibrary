@@ -1,3 +1,8 @@
+html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
 .page-footer{
     position: fixed;
     left: 0;
@@ -25,4 +30,18 @@
 }
 .book-generes span{
     font-weight: bold;
+}
+.login-card{
+    border-radius: 25px;
+    box-shadow: 0 10px 30px 0 rgba(172, 168, 168, 0.43);
+    overflow: hidden;
+    margin: 75px  0px;
+}
+.login-card-description{
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 20px;
+}
+.brand-wrapper{
+    margin: 50px 0px;
 }
