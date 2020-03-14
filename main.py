@@ -11,6 +11,9 @@ def Index():
 def Login():
     return render_template("login.html")
 
+@app.route('/signup')
+def SingUp():
+    return render_template("signup.html")
 
 
 #debug=true modunda hata çalıştırıldığında hata ile karşılaşabilirsiniz

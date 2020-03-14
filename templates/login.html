@@ -1,53 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet"  type="text/css" href="{{ url_for('static', filename='node_modules/bootstrap/dist/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <title>Document</title>
-</head>
-<body>
-    
-    <div class="d-flex align-items-center min-vh-100 py-3 py-md-0">
-        <div class="container">
-            <div class="card login-card">
-                <div class="row">
-                    <div class="col-md-5">
-                        <img src="../static/img/loginpageimage.png" height="600px" width="100%">
-                    </div>
-                    <div class="col-md-7">
-                        <div class="card-body">
+{%extends 'authbase.html'%}
 
-                            <div class="brand-wrapper">
-                                <span style="font-weight: bold;">KOU ONLİNE LİBRARY</span>
-                            </div>
+{%block title%}Login{%endblock%}
 
-                            <p class="login-card-description">
-                                    Sign into your account
-                            </p>
-                            <form>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
+{%block description%}Sign into your account{%endblock%}
+
+{%block button_upper%}
+<div class="form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+</div>
+{%endblock%}
+
+{%block button_down%}
+<div class="text-center w-full p-t-115" style="margin-top:100px">
+    <span class="txt1">
+    Not a member?
+    </span>
+    <a class="txt1 bo1 hov1" href="/signup">
+    Sign up now
+    </a>
+</div>
+{%endblock%}
+                       
