@@ -27,24 +27,18 @@
                             <p class="login-card-description">
                                 {%block description%}{%endblock%}
                             </p>
-                            <form>
+                            {% from "includes/_formhelpers.html" import render_field %}
+                            <form method=post>
+                                {% for field in form %}
                                 <div class="form-group">
-                                    <label for="InputUsername">Username</label>
-                                    <input type="username" class="form-control" id="InputUsername" aria-describedby="usernameHelp" placeholder="Enter Username">
+                                    {{ render_field(field) }}
                                 </div>
-                                <div class="form-group">
-                                    <label for="InputPassword">Password</label>
-                                    <input type="password" class="form-control" id="InputPassword" placeholder="Password">
-                                </div>
-                                {%block button_upper%}
-                                
-                                {%endblock%}
-                                <button type="submit" class="btn btn-primary form-control" style="margin-top: 15px;">Submit</button>
-                                {%block button_down%}
+                                {% endfor %}
+                                {%block form%}
                                 
                                 {%endblock%}
 
-                        </form>
+                            </form>
                         </div>
                     </div>
                 </div>
