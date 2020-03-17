@@ -1,0 +1,67 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+/* Style the header */
+.header{
+	height:200px;
+	background:url('img/header.jpg') no-repeat center 10%;
+	background-size:cover; /*resmin sınırları benim tagımın sınırlarından başlayarak boyutlanıcak*/
+	opacity:0.7;
+	filter:alpha(opacity=80);/*IE8 ve aşağısındaki tarayıcılarda sorun çıkmaması için*/
+    position:relative; /*sınırları slider olsun demek*/
+background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  
+}
+/*fare linklerin üstüne gelince*/
+.topnav a:hover{
+	text-shadow:1px 1px 1px #f5f5f5;
+}
+
+.header h1{
+	position:absolute; 
+	color: #f5f5f5;
+	text-shadow:4px 4px 4px black;
+	width:100%;
+    top:30%;/* top 0 dersek en üste konumlandırır*/
+	font-family:"Arial Black", Gadget, sans-serif;
+	
+}
+.main{
+	  background-color: white;
+      border:10px solid #333 ;
+      padding:60px;
+    
+}
+.listelemain{
+	background-color: white;
+	 padding:165px;
+	  border:10px solid #333 ;
+}
+.footer {
+  padding:1px;
+  text-align: center;
+  background-color: #333;
+  margin-top: 0px;
+}

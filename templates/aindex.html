@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="US">
+<head>
+	<meta charset="UTF-8">
+	<title>Yönetici Paneli</title>
+	<link rel="stylesheet" href="css/normalize.css" />
+	<link rel="stylesheet" href="css/custom.css" />
+
+</head>
+<body>
+<!--HEADER-->
+<div class="header">
+<h1>Yönetici Paneli</h1>
+<p>Hoşgeldin,Admin</p>
+</div>
+<div class="topnav">
+<a href="index.html">Kitap Ekle</a>
+<a href="zaman.html">Zaman Atlama</a>
+<a href="listele.html">Kitap Listeleme</a>
+</div>
+<!--MAIN-->
+<div class="main">
+<form action="index.php" method="post">
+    Kitap Adı: <br/>
+    <input type="text" name="isim" /><br/><br/>
+    <input name="dosya" type="file"/><br/><br/>
+    <input name="gonder" type="submit" value="Yükle" /><br/><br/>
+    ISBN:<br/>
+    <textarea name="metin"></textarea>
+</form>
+<!--FOOTER-->
+</div>
+<div class="footer">
+  <p>@kütüphaneuygulaması</p>
+</div>
+
+</body>
+</html>
