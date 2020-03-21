@@ -1,3 +1,4 @@
+from functools import wraps,partial
 class AuthenticationModel:
     def __init__(self, username, password):
         self.username = username
@@ -11,4 +12,6 @@ class RegisterModel(AuthenticationModel):
     def __init__(self, username, password, role):
         super().__init__(username, password)
         self.role = role
-        
+
+
+

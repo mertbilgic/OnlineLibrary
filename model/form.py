@@ -1,20 +1,22 @@
-from wtforms import Form, BooleanField, StringField,SelectField,SubmitField,validators
+from wtforms import Form, BooleanField, StringField,SelectField,SubmitField,PasswordField,validators
+from wtforms.validators import InputRequired
 
-ROLE_CHOICES = [(False,'User'), (True,'Admin')]
+ROLE_CHOICES = [(True,'Admin'),(False,'User')]
 
 class RegistrationForm(Form):
     username     = StringField(
                     'Username', 
                     [validators.Length(min=4, max=25)],
                     render_kw={'class':'form-control'})
-    password     = StringField(
+    password     = PasswordField(
                     'Password',
                     [validators.Length(min=6, max=35)],
                     render_kw={'class':'form-control'})
     role         = SelectField(
                     u'Role', 
                     choices=ROLE_CHOICES,
-                    coerce=bool,
+                    validators=[InputRequired("test")],
+                    coerce=lambda x: x == 'True',
                     render_kw={'class':'form-control'})
     button       = SubmitField(
                     'Submit',
@@ -26,7 +28,7 @@ class LoginForm(Form):
                     'Username', 
                     [validators.Length(min=4, max=25)],
                     render_kw={'class':'form-control'})
-    password     = StringField(
+    password     = PasswordField(
                     'Password', 
                     [validators.Length(min=6, max=35)],
                     render_kw={'class':'form-control'})
