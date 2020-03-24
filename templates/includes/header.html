@@ -1,4 +1,14 @@
     <!--https://getbootstrap.com/docs/4.0/components/navbar/-->
+    {% set header_element = [] %}
+    {% set header_element_href = [] %}
+    {% set role = session["role"] %}
+    {%if role == 'Admin'%}
+        {% set header_element = ['Add Book','List User','Extend Date'] %}
+        {% set header_element_href = ['/addbook',"/listuser",'/extenddate'] %}
+    {%else%}
+        {% set header_element = ['Search Book','Rent Book','Deliver Books'] %}
+        {% set header_element_href = ['/searchbook','/rentbook','/deliverbooks'] %}
+    {%endif%}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,20 +20,18 @@
                 <li class="nav-item active">
                 <a class="nav-link" style="font-weight: bold;" href="#">KOU ONLİNE LİBRARY</a>
                 </li>
+                {% for element in header_element %}
+                    <li class="nav-item">
+                        <a class="nav-link " style="font-weight: bold;" href="{{header_element_href[loop.index-1]}}">{{element}}</a>
+                    </li>
+                {% else %}
+                    <em>No element here</em>
+                {% endfor %}
+
             </ul>
-            <form class="form-inline" style="display:none;">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
             <ul class="navbar-nav my-2 my-lg-0">
                     <li class="nav-item">
-                    <a class="nav-link" style="font-weight: bold;" href="#">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"><span>/</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="font-weight: bold;" href="#">Register</a>
+                        <a class="nav-link" style="font-weight: bold;" href="{{ url_for('Logout') }}">Logout</a>
                     </li>
                 </ul>
             </div>

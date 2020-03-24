@@ -55,10 +55,10 @@ def listUser():
 def extendDate():
     return "extendthedate"
 
-@app.route("/searchuser",methods=["GET","POST"])
+@app.route("/searchbook",methods=["GET","POST"])
 @role_required(role = 'User')
 def searchUser():
-    return "searchuser"
+    return "searchbook"
 
 @app.route("/rentbook",methods=["GET","POST"])
 @role_required(role = 'User')
