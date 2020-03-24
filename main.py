@@ -40,6 +40,36 @@ def Logout():
     session_closed()
     return redirect(url_for('Login'))
 
+@app.route("/addbook",methods=["GET","POST"])
+@role_required(role = 'Admin')
+def addBook():
+    return "addbook"
+
+@app.route("/listuser",methods=["GET","POST"])
+@role_required(role = 'Admin')
+def listUser():
+    return "listuser"
+
+@app.route("/extenddate",methods=["GET","POST"])
+@role_required(role = 'Admin')
+def extendDate():
+    return "extendthedate"
+
+@app.route("/searchuser",methods=["GET","POST"])
+@role_required(role = 'User')
+def searchUser():
+    return "searchuser"
+
+@app.route("/rentbook",methods=["GET","POST"])
+@role_required(role = 'User')
+def addtime():
+    return "rentbook"
+
+@app.route("/deliverbooks",methods=["GET","POST"])
+@role_required(role = 'User')
+def deliverBooks():
+    return "deliverbooks"
+
 #debug=true modunda hata çalıştırıldığında hata ile karşılaşabilirsiniz
 if __name__=="__main__":
     app.run(debug=True)
