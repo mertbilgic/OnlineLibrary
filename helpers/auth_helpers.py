@@ -1,7 +1,7 @@
 from flask import url_for,session,redirect
 from functools import wraps,partial,update_wrapper
 
-def login_required(role):
+def role_required(role = None):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
@@ -15,13 +15,31 @@ def login_required(role):
             return f(*args, **kwargs)
         return update_wrapper(decorated_function, f)
     return decorator
+        
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if "username" not in session:
+            return f(*args, **kwargs)
+        else:
+            #flash("Kullanıcı girişi yapmanız gerekiyor.","danger")
+            return redirect(url_for('Index'))
+    return decorated_function
+
+def logout_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if "username" in session:
+            return f(*args, **kwargs)
+        else:
+            #flash("Kullanıcı girişi yapılmadı.","danger")
+            return redirect(url_for('Index'))
+    return decorated_function
 
 def session_openned(username,role):
 
     session["username"] = username
     session["role"] = role
-
-    auth_decorator = partial(login_required,role = role)
 
 def session_closed():
 

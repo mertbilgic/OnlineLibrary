@@ -16,3 +16,5 @@ class MongoSingleton:
         if MongoSingleton.__instance == None:
             MongoSingleton()
         return MongoSingleton.__instance
+
+#TODO:Uygulama ayağa kaldırıldığında mongodb'de collections yoksa oluştur.

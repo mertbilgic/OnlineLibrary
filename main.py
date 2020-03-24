@@ -8,11 +8,12 @@ app = Flask(__name__)
 app.secret_key="library"
 
 @app.route('/')
-@login_required(None)
+@role_required()
 def Index():
     return render_template("index.html")
 
 @app.route("/login",methods=["GET","POST"])
+@login_required
 def Login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -24,12 +25,20 @@ def Login():
     return render_template("login.html",form=form)
 
 @app.route("/signup",methods=["GET","POST"])
+@login_required
 def SingUp():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
         register = RegisterModel(form.username.data,form.password.data,form.role.data)
         Database.insert("Users",register.__dict__)
+        return redirect(url_for('Login'))
     return render_template("signup.html",form=form)
+
+@app.route("/logout")
+@logout_required
+def Logout():
+    session_closed()
+    return redirect(url_for('Login'))
 
 #debug=true modunda hata çalıştırıldığında hata ile karşılaşabilirsiniz
 if __name__=="__main__":

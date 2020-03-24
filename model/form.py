@@ -1,7 +1,7 @@
 from wtforms import Form, BooleanField, StringField,SelectField,SubmitField,PasswordField,validators
 from wtforms.validators import InputRequired
 
-ROLE_CHOICES = [(True,'Admin'),(False,'User')]
+ROLE_CHOICES = [("Admin",'Admin'),("User",'User')]
 
 class RegistrationForm(Form):
     username     = StringField(
@@ -16,7 +16,6 @@ class RegistrationForm(Form):
                     u'Role', 
                     choices=ROLE_CHOICES,
                     validators=[InputRequired("test")],
-                    coerce=lambda x: x == 'True',
                     render_kw={'class':'form-control'})
     button       = SubmitField(
                     'Submit',
