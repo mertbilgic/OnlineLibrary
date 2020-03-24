@@ -3,9 +3,10 @@ from helpers.db_crud import *
 from helpers.auth_helpers import *
 from model.authmodel import *
 from model.form import *
+import uuid
 
 app = Flask(__name__)
-app.secret_key="library"
+app.secret_key = uuid.uuid4().hex
 
 @app.route('/')
 @role_required()
@@ -17,7 +18,8 @@ def Index():
 def Login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
-        login = LoginModel(form.username.data,form.password.data)
+        hashed_password = get_sha256_password(form.password.data)
+        login = LoginModel(form.username.data,hashed_password)
         result = Database.find_one("Users",login.__dict__)
         if bool(result):
             session_openned(result['username'],result["role"])
@@ -29,7 +31,8 @@ def Login():
 def SingUp():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
-        register = RegisterModel(form.username.data,form.password.data,form.role.data)
+        hashed_password = get_sha256_password(form.password.data)
+        register = RegisterModel(form.username.data,hashed_password,form.role.data)
         Database.insert("Users",register.__dict__)
         return redirect(url_for('Login'))
     return render_template("signup.html",form=form)

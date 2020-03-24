@@ -1,5 +1,7 @@
-from flask import url_for,session,redirect
 from functools import wraps,partial,update_wrapper
+from flask import url_for,session,redirect
+from hashlib import sha256
+
 
 def role_required(role = None):
     def decorator(f):
@@ -43,11 +45,10 @@ def session_openned(username,role):
 
 def session_closed():
 
-    if session.get("username") :
+    del session["username"]
+    del session["role"]
 
-        del session["username"]
-        del session["role"]
-        print("Session temizlendi")
-    else:
-        print("Çıkış yapıcak kullanıcı yok")
-
+def get_sha256_password(password):
+    hashed_password = sha256(password.encode('ascii')).hexdigest()
+    return hashed_password
+  

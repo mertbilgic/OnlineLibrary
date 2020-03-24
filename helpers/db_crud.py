@@ -6,6 +6,10 @@ class Database:
     libraryClient = MongoSingleton.getInstance()
 
     library_db = libraryClient[get_value_from_name('db_name')]
+
+    books_col = library_db[get_value_from_name('books_col')]
+
+    users_col = library_db[get_value_from_name('users_col')]
     
     @staticmethod
     def insert(collection, data):
