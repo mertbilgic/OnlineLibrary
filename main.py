@@ -8,12 +8,12 @@ import uuid
 app = Flask(__name__)
 app.secret_key = uuid.uuid4().hex
 
-@app.route('/')
+@app.route('/index')
 @role_required()
 def Index():
     return render_template("index.html")
 
-@app.route("/login",methods=["GET","POST"])
+@app.route("/",methods=["GET","POST"])
 @login_required
 def Login():
     form = LoginForm(request.form)
@@ -23,6 +23,7 @@ def Login():
         result = Database.find_one("Users",login.__dict__)
         if bool(result):
             session_openned(result['username'],result["role"])
+            #flash("Kullanıcı Girişi Başarılı","success")
             return redirect(url_for('Index'))
     return render_template("login.html",form=form)
 
@@ -34,6 +35,7 @@ def SingUp():
         hashed_password = get_sha256_password(form.password.data)
         register = RegisterModel(form.username.data,hashed_password,form.role.data)
         Database.insert("Users",register.__dict__)
+        flash("Kayıt İşlemi Başarılı","success")
         return redirect(url_for('Login'))
     return render_template("signup.html",form=form)
 

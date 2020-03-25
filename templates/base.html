@@ -9,6 +9,8 @@
     <title>Document</title>
 </head>
 <body>
+    {% include 'includes/message.html' %}
+
     {% include 'includes/header.html' %}
 
     {% block content%}
@@ -16,8 +18,9 @@
     {%endblock%}
 
     {%include 'includes/footer.html'%}
-    <link rel="stylesheet"  type="text/css" href="{{ url_for('static', filename='node_modules/jquery/dist/jquery.min.js')}}">
-    <link rel="stylesheet"  type="text/css" href="{{ url_for('static', filename='node_modules/popper.js/dist/umd/popper.min.js')}}">
-    <link rel="stylesheet"  type="text/css" href="{{ url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.min.js')}}">
+
+    <script src="{{ url_for('static', filename='node_modules/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='node_modules/popper.js/dist/umd/popper.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 </body>
 </html>

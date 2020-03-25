@@ -1,5 +1,5 @@
 from functools import wraps,partial,update_wrapper
-from flask import url_for,session,redirect
+from flask import url_for,session,redirect,flash
 from hashlib import sha256
 
 
@@ -8,11 +8,12 @@ def role_required(role = None):
         @wraps(f)
         def decorated_function(*args, **kwargs):
             if "role" not in session:
+                flash("Kullanıcı girişi yapmanız gerekiyor.","danger")
                 return redirect(url_for('Login'))
             if session["role"] == role or role == None:
                 return f(*args, **kwargs)
             else:
-                #flash("Yetkisiz Alan","danger")
+                flash("Yetkisiz Alan","danger")
                 return redirect(url_for('Index'))
             return f(*args, **kwargs)
         return update_wrapper(decorated_function, f)
@@ -24,7 +25,6 @@ def login_required(f):
         if "username" not in session:
             return f(*args, **kwargs)
         else:
-            #flash("Kullanıcı girişi yapmanız gerekiyor.","danger")
             return redirect(url_for('Index'))
     return decorated_function
 
@@ -34,7 +34,7 @@ def logout_required(f):
         if "username" in session:
             return f(*args, **kwargs)
         else:
-            #flash("Kullanıcı girişi yapılmadı.","danger")
+            flash("Kullanıcı girişi yapılmadı.","danger")
             return redirect(url_for('Index'))
     return decorated_function
 

@@ -1,0 +1,8 @@
+<!--https://flask.palletsprojects.com/en/1.1.x/patterns/flashing/-->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <a class="alert alert-{{ category }}" style="display:block; width: 100%;">{{ message }}</a>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
