@@ -1,0 +1,14 @@
+{%extends 'base.html'%}
+
+{%block content%}
+{% from "includes/_formhelpers.html" import render_field %}
+<div class="container">
+    <form method=post>
+        {% for field in form %}
+        <div class="form-group">
+            {{ render_field(field) }}
+        </div>
+        {% endfor %}
+    </form>
+</div>
+{%endblock%}

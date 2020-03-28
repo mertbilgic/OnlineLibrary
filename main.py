@@ -1,7 +1,9 @@
 from flask import Flask,render_template,url_for,escape,request,redirect,flash,logging
 from helpers.db_crud import *
+from helpers.json_helper import *
 from helpers.auth_helpers import *
 from model.authmodel import *
+from model.bookmodel import *
 from model.form import *
 import uuid
 
@@ -22,7 +24,8 @@ def Login():
         login = LoginModel(form.username.data,hashed_password)
         result = Database.find_one("Users",login.__dict__)
         if bool(result):
-            session_openned(result['username'],result["role"])
+            _id = JSONEncoder().encode(result['_id'])
+            session_openned(_id,result['username'],result["role"])
             #flash("Kullanıcı Girişi Başarılı","success")
             return redirect(url_for('Index'))
     return render_template("login.html",form=form)
@@ -48,7 +51,14 @@ def Logout():
 @app.route("/addbook",methods=["GET","POST"])
 @role_required(role = 'Admin')
 def addBook():
-    return "addbook"
+    form = BookForm(request.form)
+    if request.method == 'POST' and form.validate():
+        book = BookModel(form.book_name.data,form.ISBN.data)
+        book_data = book.__dict__
+        book_data.update({"user_id":session['_id']})
+        Database.insert("Books",book_data)
+
+    return render_template('addbook.html',form=form)
 
 @app.route("/listuser",methods=["GET","POST"])
 @role_required(role = 'Admin')
@@ -67,8 +77,9 @@ def searchUser():
 
 @app.route("/rentbook",methods=["GET","POST"])
 @role_required(role = 'User')
-def addtime():
-    return "rentbook"
+def rentbook():
+    books = Database.find_all("Books")
+    return render_template('rentbook.html',books=books)
 
 @app.route("/deliverbooks",methods=["GET","POST"])
 @role_required(role = 'User')

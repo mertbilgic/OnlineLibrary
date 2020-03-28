@@ -38,13 +38,13 @@ def logout_required(f):
             return redirect(url_for('Index'))
     return decorated_function
 
-def session_openned(username,role):
-
+def session_openned(_id,username,role):
+    session["_id"] = _id
     session["username"] = username
     session["role"] = role
 
 def session_closed():
-
+    del session["_id"]
     del session["username"]
     del session["role"]
 

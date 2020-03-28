@@ -10,6 +10,8 @@ class Database:
     books_col = library_db[get_value_from_name('books_col')]
 
     users_col = library_db[get_value_from_name('users_col')]
+
+    rent_col = library_db[get_value_from_name('rent_col')]
     
     @staticmethod
     def insert(collection, data):
@@ -18,6 +20,10 @@ class Database:
     @staticmethod
     def find(collection, query):
         return Database.library_db[collection].find(query)
+    
+    @staticmethod
+    def find_all(collection):
+        return Database.library_db[collection].find()
 
     @staticmethod
     def find_one(collection, query):

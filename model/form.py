@@ -36,4 +36,18 @@ class LoginForm(Form):
                     render_kw={'class':'btn btn-primary form-control',
                         'style':"margin-top: 15px;",
                         'type':'submit'})
+class BookForm(Form):
+    ISBN        =  StringField(
+                    'ISBN', 
+                    [validators.Length(min=4, max=25)],
+                    render_kw={'class':'form-control'})
+    book_name   = StringField(
+                    'Book Name', 
+                    [validators.Length(min=6, max=35)],
+                    render_kw={'class':'form-control'})
+    button       = SubmitField(
+                    'Submit',
+                    render_kw={'class':'btn btn-primary form-control',
+                        'style':"margin-top: 15px;",
+                        'type':'submit'})
                     
