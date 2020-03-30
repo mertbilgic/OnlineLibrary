@@ -48,7 +48,19 @@ class Database:
         book = Database.find_one(remove_col,query)
         book.update({
                     "renter_user_id":id,
-                    "delivery_date":(datetime.now()+timedelta(days=7)).strftime("%Y-%m-%d")
+                    "deliver_date":(datetime.now()+timedelta(days=7)).strftime("%Y-%m-%d")
                     })
         Database.book_transfer(remove_col,insert_col,query,book)
+
+    @staticmethod
+    def deliver_book(remove_col,insert_col,query):
+        book = Database.find_one(remove_col,query)
+        if bool(book):
+            del book['renter_user_id']
+            del book['deliver_date']
+            Database.book_transfer(remove_col,insert_col,query,book)
+            return "İade işlemi başarılı","success"
+        else:
+            return "Belirtiğiniz kitap kullanıcıya ait değil.","danger"
+
 

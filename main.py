@@ -88,7 +88,15 @@ def rentbook():
 @app.route("/deliverbooks",methods=["GET","POST"])
 @role_required(role = 'User')
 def deliverBooks():
-    return "deliverbooks"
+    ISBN = request.args.get('ISBN')
+    form = BookForm(request.form)
+    if request.method == 'POST' and form.validate():
+        pass
+    if ISBN != None:
+        message,result = Database.deliver_book('RentBooks','Books',{"ISBN":ISBN})
+        flash(message,result)
+    books = Database.find("RentBooks",{ "renter_user_id":session['_id']})
+    return render_template('deliverbooks.html',books=books,form=form)
 
 #debug=true modunda hata çalıştırıldığında hata ile karşılaşabilirsiniz
 if __name__=="__main__":
