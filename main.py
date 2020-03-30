@@ -1,7 +1,7 @@
 from flask import Flask,render_template,url_for,escape,request,redirect,flash,logging
-from helpers.db_crud import *
 from helpers.json_helper import *
 from helpers.auth_helpers import *
+from helpers.lib_tans_helper import *
 from model.authmodel import *
 from model.bookmodel import *
 from model.form import *
@@ -55,7 +55,7 @@ def addBook():
     if request.method == 'POST' and form.validate():
         book = BookModel(form.book_name.data,form.ISBN.data)
         book_data = book.__dict__
-        book_data.update({"user_id":session['_id']})
+        book_data.update({"added_user_id":session['_id']})
         Database.insert("Books",book_data)
 
     return render_template('addbook.html',form=form)
@@ -78,6 +78,10 @@ def searchUser():
 @app.route("/rentbook",methods=["GET","POST"])
 @role_required(role = 'User')
 def rentbook():
+    ISBN = request.args.get('ISBN')
+    if ISBN != None:
+        message,result = rent_book(ISBN,session['_id'])
+        flash(message,result)
     books = Database.find_all("Books")
     return render_template('rentbook.html',books=books)
 
