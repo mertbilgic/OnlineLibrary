@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+{% include 'includes/searchbar.html'%}
+
+<div class="container">
+    <table style="width:100%; margin-top:20px;">
+        <tr>
+          <th>ISBN</th>
+          <th>Book Name</th>         
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{book.ISBN}}</td>
+            <td>{{book.bookname}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+</div>
+
+{%endblock%}

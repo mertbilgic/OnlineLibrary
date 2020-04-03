@@ -50,4 +50,17 @@ class BookForm(Form):
                     render_kw={'class':'btn btn-primary form-control',
                         'style':"margin-top: 15px;",
                         'type':'submit'})
+class SearchForm(Form):
+    search       =  StringField(
+                    '', 
+                    [validators.Length(min=4, max=25)],
+                    render_kw={'class':'form-control',
+                        "placeholder":"Search publications, articles, keywords, etc.",
+                        "type":"search",
+                        "aria-label":"Search",
+                        })
+    button       = SubmitField(
+                    'Submit',
+                    render_kw={'class':'btn btn-light',
+                        'type':'submit'})
                     

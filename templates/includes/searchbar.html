@@ -1,6 +1,8 @@
 <div class="search-area">
-            
-    <input class="form-control" type="search" placeholder="Search publications, articles, keywords, etc." aria-label="Search">    
-    <button class="btn btn-light" type="submit">Search</button>        
-
+    {% from "includes/_formhelpers.html" import render_field %}
+    <form method=post action="/searchbook">
+        {% for field in form %}
+            {{ render_field(field) }}
+        {% endfor %} 
+    </form> 
 </div>

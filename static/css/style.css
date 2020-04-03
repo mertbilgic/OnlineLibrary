@@ -21,6 +21,11 @@ html, body {
     background-image: url("../img/books.jpg");
     margin-bottom:25px;
 }
+.search-area dd{
+    display: inline-block;
+    margin-left: -5px;
+    margin-bottom: 1px;
+}
 .quotes{
     font-weight: bold;
     top: 15px;

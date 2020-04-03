@@ -13,7 +13,8 @@ app.secret_key = uuid.uuid4().hex
 @app.route('/index')
 @role_required()
 def Index():
-    return render_template("index.html")
+    form = SearchForm(request.form)
+    return render_template("index.html",form=form)
 
 @app.route("/",methods=["GET","POST"])
 @login_required
@@ -72,8 +73,20 @@ def extendDate():
 
 @app.route("/searchbook",methods=["GET","POST"])
 @role_required(role = 'User')
-def searchUser():
-    return "searchbook"
+def searchBook():
+    keyword = request.form.get("search",None)
+    form = SearchForm(request.form)
+    books = []
+
+    if keyword == '' :
+        flash("Lütfen input alanına veri giriniz","danger")
+    elif keyword != None : 
+        query = {"$search" :"(\"{}\"".format(keyword)}
+        books = Database.find("Books",{ "$text": query})
+        
+        if bool(books): flash("Aradığınız kitap mevcut değil","info")
+
+    return render_template('listbook.html',books=books,form=form)
 
 @app.route("/rentbook",methods=["GET","POST"])
 @role_required(role = 'User')
