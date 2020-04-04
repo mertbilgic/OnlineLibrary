@@ -1,7 +1,7 @@
 from helpers.db_crud import *
 
 def rent_book(ISBN,id):
-    now = datetime.today().strftime('%Y-%m-%d')
+    now = Date.get_date_time()
     rent_book = Database.find("RentBooks",{ "renter_user_id":id})
     message = "Kitap alma işlemini başarıyla gerçekleştirdiniz."
     result = "success"

@@ -3,8 +3,8 @@
     {% set header_element_href = [] %}
     {% set role = session["role"] %}
     {%if role == 'Admin'%}
-        {% set header_element = ['Add Book','List User','Extend Date'] %}
-        {% set header_element_href = ['/addbook',"/listuser",'/extenddate'] %}
+        {% set header_element = ['Add Book','List User','Extend Date','Change Local Date'] %}
+        {% set header_element_href = ['/addbook',"/listuser",'/extenddate','/changelocaldate'] %}
     {%else%}
         {% set header_element = ['Search Book','Rent Book','Deliver Books'] %}
         {% set header_element_href = ['/searchbook','/rentbook','/deliverbooks'] %}
@@ -18,7 +18,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto left">
                 <li class="nav-item active">
-                <a class="nav-link" style="font-weight: bold;" href="#">KOU ONLİNE LİBRARY</a>
+                <a class="nav-link" style="font-weight: bold;" href="/index">KOU ONLİNE LİBRARY</a>
                 </li>
                 {% for element in header_element %}
                     <li class="nav-item">

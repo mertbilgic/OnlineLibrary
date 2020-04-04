@@ -1,6 +1,6 @@
 #https://mongodb.tecladocode.com/mongodb_with_python/database.py.html#code-for-database-py
 from helpers.mongo_helpers import *
-from datetime import datetime,timedelta
+from helpers.date_helpers import *
 
 class Database:
 
@@ -46,9 +46,10 @@ class Database:
     @staticmethod
     def insert_rent_col(remove_col,insert_col,query,id):
         book = Database.find_one(remove_col,query)
+        rent_days = 7
         book.update({
                     "renter_user_id":id,
-                    "deliver_date":(datetime.now()+timedelta(days=7)).strftime("%Y-%m-%d")
+                    "deliver_date":Date.get_date_time(rent_days)
                     })
         Database.book_transfer(remove_col,insert_col,query,book)
 

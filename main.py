@@ -71,6 +71,19 @@ def listUser():
 def extendDate():
     return "extendthedate"
 
+@app.route("/changelocaldate",methods=["GET","POST"])
+@role_required(role = 'Admin')
+def changeLocalDate():
+    form = CTimeForm(request.form)
+    if request.method == 'POST':
+        day = form.day.data
+        if len(day):
+            Date.next_day += int(form.day.data)
+        else: 
+            Date.next_day += 20
+        flash("Sistem Tarihi: {}".format(Date.get_date_time()),"success")
+    return render_template('changelocaldate.html',form=form)
+
 @app.route("/searchbook",methods=["GET","POST"])
 @role_required(role = 'User')
 def searchBook():

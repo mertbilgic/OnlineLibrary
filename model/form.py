@@ -63,4 +63,14 @@ class SearchForm(Form):
                     'Submit',
                     render_kw={'class':'btn btn-light',
                         'type':'submit'})
+class CTimeForm(Form):
+    day        =  StringField(
+                    'How many days', 
+                    [validators.Length(min=4, max=25)],
+                    render_kw={'class':'form-control'})
+    button      = SubmitField(
+                    'Submit',
+                    render_kw={'class':'btn btn-primary form-control',
+                        'style':"margin-top: 15px;",
+                        'type':'submit'})
                     
