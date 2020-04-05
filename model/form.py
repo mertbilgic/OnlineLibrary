@@ -67,7 +67,8 @@ class CTimeForm(Form):
     day        =  StringField(
                     'How many days', 
                     [validators.Length(min=4, max=25)],
-                    render_kw={'class':'form-control'})
+                    render_kw={'class':'form-control',
+                    "placeholder":"Default Value 20 Day"})
     button      = SubmitField(
                     'Submit',
                     render_kw={'class':'btn btn-primary form-control',

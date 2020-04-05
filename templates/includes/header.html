@@ -3,8 +3,8 @@
     {% set header_element_href = [] %}
     {% set role = session["role"] %}
     {%if role == 'Admin'%}
-        {% set header_element = ['Add Book','List User','Extend Date','Change Local Date'] %}
-        {% set header_element_href = ['/addbook',"/listuser",'/extenddate','/changelocaldate'] %}
+        {% set header_element = ['Add Book','List User','Change Local Date'] %}
+        {% set header_element_href = ['/addbook',"/listuser",'/changelocaldate'] %}
     {%else%}
         {% set header_element = ['Search Book','Rent Book','Deliver Books'] %}
         {% set header_element_href = ['/searchbook','/rentbook','/deliverbooks'] %}
