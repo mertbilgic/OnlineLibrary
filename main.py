@@ -64,7 +64,8 @@ def addBook():
 @app.route("/listuser",methods=["GET","POST"])
 @role_required(role = 'Admin')
 def listUser():
-    return "listuser"
+    user_info = Database.aggregate("Users","RentBooks","username","renter_user")
+    return render_template('listuser.html',user_info=user_info)
 
 @app.route("/extenddate",methods=["GET","POST"])
 @role_required(role = 'Admin')
@@ -106,7 +107,7 @@ def searchBook():
 def rentbook():
     ISBN = request.args.get('ISBN')
     if ISBN != None:
-        message,result = rent_book(ISBN,session['_id'])
+        message,result = rent_book(ISBN,session['username'])
         flash(message,result)
     books = Database.find_all("Books")
     return render_template('rentbook.html',books=books)
@@ -121,7 +122,7 @@ def deliverBooks():
     if ISBN != None:
         message,result = Database.deliver_book('RentBooks','Books',{"ISBN":ISBN})
         flash(message,result)
-    books = Database.find("RentBooks",{ "renter_user_id":session['_id']})
+    books = Database.find("RentBooks",{ "renter_user":session['username']})
     return render_template('deliverbooks.html',books=books,form=form)
 
 #debug=true modunda hata çalıştırıldığında hata ile karşılaşabilirsiniz

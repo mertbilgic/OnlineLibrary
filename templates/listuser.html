@@ -1,0 +1,30 @@
+<!--https://getbootstrap.com/docs/4.4/components/collapse/-->
+{%extends 'base.html'%}
+
+{%block content%}
+    <div class="container">
+        {% for item in user_info %}
+            {%if item.role != "Admin"%}
+                <p>
+                <button class="btn btn-primary form-control" data-toggle="collapse" href="#{{item.username}}" role="button" aria-expanded="false" aria-controls="collapseExample" style="width: 100%">
+                    {{item.username}}
+                </button>
+                </p>
+                <div class="collapse" id="{{item.username}}">
+                    {% for item in item.result %}
+                        <div class="card card-body">
+                        <p>{{item.bookname}}</p>
+                        <p>{{item.ISBN}}</p>
+                        <p>{{item.deliver_date}}</p>
+                        </div>
+                    {%else%}
+                        <div class="card card-body">
+                            Kullanıcı kitap kiralamadı.
+                        </div>
+                    {%endfor%}
+                </div>
+            {%endif%}
+        {%endfor%}
+    </div>
+
+{%endblock%}
