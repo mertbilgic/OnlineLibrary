@@ -3,13 +3,14 @@ from helpers.json_helper import *
 from helpers.auth_helpers import *
 from helpers.lib_tans_helper import *
 from helpers.file_upload_helpers import *
+from helpers.image_proc_helpers import *
 from model.authmodel import *
 from model.bookmodel import *
 from model.form import *
 import uuid
 
 app = Flask(__name__)
-app.secret_key = uuid.uuid4().hex
+app.secret_key = "12312313"#uuid.uuid4().hex
 app.config['UPLOAD_FOLDER'] = FileUpload.UPLOAD_FOLDER
 
 @app.route('/index')
@@ -80,6 +81,9 @@ def uploadFile():
             FileUpload.FILE_NAME = file.filename
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            path = FileUpload.UPLOAD_FOLDER + FileUpload.FILE_NAME
+            imgproc = ImageProc(path)
+            imgproc.get_result()
         flash(file.filename+' adlı dosya kayıt edildi','success')
         return redirect(url_for(session['url']))
     return redirect(url_for('Index'))
