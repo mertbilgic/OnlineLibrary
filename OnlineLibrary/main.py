@@ -57,11 +57,14 @@ def Logout():
 def addBook():
     session['url'] = 'addBook'
     form = BookForm(request.form)
+    if 'isbn' in session:
+        form.ISBN.data = session['isbn']
     if request.method == 'POST' and form.validate():
         book = BookModel(form.book_name.data,form.ISBN.data)
         book_data = book.__dict__
         book_data.update({"added_user_id":session['_id']})
         Database.insert("Books",book_data)
+        del session['isbn']
 
     return render_template('addbook.html',form=form)
 
@@ -83,7 +86,7 @@ def uploadFile():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             path = FileUpload.UPLOAD_FOLDER + FileUpload.FILE_NAME
             imgproc = ImageProc(path)
-            imgproc.get_result()
+            session['isbn'] = imgproc.get_result()
         flash(file.filename+' adlı dosya kayıt edildi','success')
         return redirect(url_for(session['url']))
     return redirect(url_for('Index'))
@@ -143,11 +146,12 @@ def rentbook():
 @role_required(role = 'User')
 def deliverBooks():
     session['url'] = 'deliverBooks'
-    ISBN = request.args.get('ISBN')
     form = BookForm(request.form)
-    if request.method == 'POST' and form.validate():
-        pass
-    if ISBN != None:
+    if 'isbn' in session:
+        form.ISBN.data = session['isbn']
+        del session['isbn']
+    ISBN = request.args.get('ISBN',form.ISBN.data)
+    if request.method == 'POST' and form.validate() and ISBN != '':
         message,result = Database.deliver_book('RentBooks','Books',{"ISBN":ISBN})
         flash(message,result)
     books = Database.find("RentBooks",{ "renter_user":session['username']})
