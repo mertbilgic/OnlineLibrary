@@ -128,7 +128,7 @@ def searchBook():
         query = {"$search" :"(\"{}\"".format(keyword)}
         books = Database.find("Books",{ "$text": query})
         
-        if bool(books): flash("Aradığınız kitap mevcut değil","info")
+        if not bool(books): flash("Aradığınız kitap mevcut değil","info")
 
     return render_template('listbook.html',books=books,form=form)
 
