@@ -1,8 +1,8 @@
-# Books
+# Online Library
 
 **Dependencies:** Python 3.8.0, Pip, Virtualenv, Npm
 
-#### Create virtual environment 
+### Create virtual environment 
 
 ```sh
 git clone https://github.com/mertbilgic/OnlineLibrary.git
