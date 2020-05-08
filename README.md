@@ -7,7 +7,7 @@
 ```sh
 git clone https://github.com/mertbilgic/OnlineLibrary.git
 cd OnlineLibrary
-virtualenv --python=/usr/local/bin/python3.8  venv
+virtualenv venv
 ```
 
 ### Install depedencies
