@@ -7,11 +7,7 @@ from helpers.image_proc_helpers import *
 from model.authmodel import *
 from model.bookmodel import *
 from model.form import *
-import uuid
-
-app = Flask(__name__)
-app.secret_key = "12312313"#uuid.uuid4().hex
-app.config['UPLOAD_FOLDER'] = FileUpload.UPLOAD_FOLDER
+from settings import *
 
 @app.route('/index')
 @role_required()
@@ -157,6 +153,5 @@ def deliverBooks():
     books = Database.find("RentBooks",{ "renter_user":session['username']})
     return render_template('deliverbooks.html',books=books,form=form)
 
-#debug=true modunda hata çalıştırıldığında hata ile karşılaşabilirsiniz
 if __name__=="__main__":
     app.run(debug=True)
